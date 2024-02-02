@@ -20,7 +20,7 @@ public class DriveSubsystem extends SubsystemBase{
     public DriveSubsystem(){
         rSpark.addFollower(brSpark);
         lSpark.addFollower(blSpark);
-        rSpark.setInverted(true);//TODO test if this is acceptable
+        lSpark.setInverted(true);//TODO test if this is acceptable
         driver = new DifferentialDrive(lSpark, rSpark);
         this.setDefaultCommand(getArcadeDriveCommand());
     }
