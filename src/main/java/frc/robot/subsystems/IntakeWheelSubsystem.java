@@ -7,9 +7,9 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class SeesawElevate extends SubsystemBase {
+public class IntakeWheelSubsystem extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
-  public SeesawElevate() {}
+  public IntakeWheelSubsystem() {}
 
   /**
    * Example command factory method.

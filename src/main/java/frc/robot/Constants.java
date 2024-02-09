@@ -25,7 +25,7 @@ public final class Constants {
   }
 
   public static class SeesawConstants{
-    public static final int motor1port = 0;  
-    public static final int motor2port = 1;
+    public static final int seesawMotorPort = 0;  
   }
+  
 }
