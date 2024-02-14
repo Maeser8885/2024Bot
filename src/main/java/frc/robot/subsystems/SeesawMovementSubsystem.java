@@ -1,20 +1,26 @@
 // Copyright (c) FIRST and other WPILib contributors.
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
-
+//2 Moving, 2 on springs, 1 on side wheels 1 on intake wheels, 1 on moving seesaw
 package frc.robot.subsystems;
 
+import frc.robot.RobotContainer;
 import frc.robot.Constants.SeesawConstants;
+import frc.robot.Settings.SeesawSettings;
 import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class SeesawArmMove extends SubsystemBase {
+public class SeesawMovementSubsystem extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
-  PWMSparkMax motor1 = new PWMSparkMax(SeesawConstants.motor1port);
-  PWMSparkMax motor2 = new PWMSparkMax(SeesawConstants.motor2port);
-  public SeesawArmMove() {
-    motor1.addFollower(motor2);
+  PWMSparkMax seeSawMotor = new PWMSparkMax(SeesawConstants.seesawMotorPort);
+  public SeesawMovementSubsystem() {
+    
+  }
+
+  public void rotate(double direction) {
+    //TODO: Make sure to figure out what motor speeds are BEFORE competition
+    seeSawMotor.set(SeesawSettings.SeesawRotSpeed * direction);
   }
 
   /**
@@ -43,7 +49,7 @@ public class SeesawArmMove extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    rotate(RobotContainer.xboxController.getRightX());    // This method will be called once per scheduler run
   }
 
   @Override
