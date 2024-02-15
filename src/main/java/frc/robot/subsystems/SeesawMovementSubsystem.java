@@ -48,7 +48,7 @@ public class SeesawMovementSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    rotate(RobotContainer.xboxController.getRightX());    // This method will be called once per scheduler run
+      // This method will be called once per scheduler run
   }
 
   @Override
