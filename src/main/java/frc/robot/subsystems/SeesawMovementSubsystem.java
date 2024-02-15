@@ -19,7 +19,7 @@ public class SeesawMovementSubsystem extends SubsystemBase {
   }
 
   public void rotate(double direction) {
-    
+
   }
 
   /**
