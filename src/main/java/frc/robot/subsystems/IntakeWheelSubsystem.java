@@ -9,7 +9,12 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class IntakeWheelSubsystem extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
-  public IntakeWheelSubsystem() {}
+  public IntakeWheelSubsystem() {
+
+    //intake rotation
+
+    //shooting rotation
+  }
 
   /**
    * Example command factory method.

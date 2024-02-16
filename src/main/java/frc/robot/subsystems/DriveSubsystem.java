@@ -1,5 +1,4 @@
 package frc.robot.subsystems;
-
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 //import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -30,7 +29,7 @@ public class DriveSubsystem extends SubsystemBase{
     } 
 
     public Command getArcadeDriveCommand(){
-        return this.run(() -> arcadeDrive(RobotContainer.joystickController.getX(), -RobotContainer.joystickController.getTwist()));
+        return this.run(() -> arcadeDrive(RobotContainer.joystickController.getX(), RobotContainer.joystickController.getTwist()));
     }
 
     @Override

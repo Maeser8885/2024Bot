@@ -19,13 +19,18 @@ public final class Constants {
   }
   public static class MotorConstants {
     public static final int kblMotorPort = 0;
-    public static final int kbrMotorPort = 0;
-    public static final int kflMotorPort = 0;
-    public static final int kfrMotorPort = 0;
+    public static final int kbrMotorPort = 1;
+    public static final int kflMotorPort = 2;
+    public static final int kfrMotorPort = 3;
   }
 
   public static class SeesawConstants{
     public static final int seesawMotorPort = 0;  
   }
+  public static class IntakeConstants{
+    public static final int kshootMotorPort = 0;
+    public static final int kintakeMotorPort = 0;
+  }
+
   
 }
