@@ -4,9 +4,7 @@
 //2 Moving, 2 on springs, 1 on side wheels 1 on intake wheels, 1 on moving seesaw
 package frc.robot.subsystems;
 
-import frc.robot.RobotContainer;
 import frc.robot.Constants.SeesawConstants;
-import frc.robot.Settings.SeesawSettings;
 import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
