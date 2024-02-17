@@ -16,9 +16,8 @@ public class SeesawMovementSubsystem extends SubsystemBase {
     
   }
 
-  // rotate
-  public void rotate(double direction) {
-
+  void rotateToAngle(int angle){
+    
   }
 
   /**
