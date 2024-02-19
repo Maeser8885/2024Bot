@@ -31,6 +31,9 @@ public final class Constants {
     public static final int kshootMotorPort = 0;
     public static final int kintakeMotorPort = 0;
   }
+  public static class RetractionConstants{
+    public static final int winchMotorPort = 0;
+  }
 
   
 }

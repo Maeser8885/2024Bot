@@ -6,11 +6,13 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
+import com.revrobotics.*;
 
 public class ArmRetractionSubsystem extends SubsystemBase {
-  /** Creates a new ExampleSubsystem. */
+  private final CANSparkMax m_winchMotor = new CANSparkMax(Constants.RetractionConstants.winchMotorPort, CANSparkLowLevel.MotorType.kBrushless);
   public ArmRetractionSubsystem() {}
-
+    
   /**
    * Example command factory method.
    *
@@ -24,7 +26,9 @@ public class ArmRetractionSubsystem extends SubsystemBase {
           /* one-time action goes here */
         });
   }
-
+  public void winchsuff(){
+    m_winchMotor.set(.4);
+  }
   /**
    * An example method querying a boolean state of the subsystem (for example, a digital sensor).
    *
