@@ -9,7 +9,9 @@ import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.ShootingAndIntakeSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -23,6 +25,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 public class RobotContainer {
 
   DriveSubsystem driveSubsystem = new DriveSubsystem();
+  ShootingAndIntakeSubsystem shootingandIntakeSubsystem = new ShootingAndIntakeSubsystem();
 
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
@@ -52,6 +55,14 @@ public class RobotContainer {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
     new Trigger(m_exampleSubsystem::exampleCondition)
         .onTrue(new ExampleCommand(m_exampleSubsystem));
+
+      xboxController.rightTrigger().toggleOnTrue(new InstantCommand(()-> {
+        shootingandIntakeSubsystem.shootNote();
+      }, shootingandIntakeSubsystem));
+
+      xboxController.leftTrigger().toggleOnTrue(new InstantCommand(()->{
+        shootingandIntakeSubsystem.intakeNote();
+      }, shootingandIntakeSubsystem));
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.

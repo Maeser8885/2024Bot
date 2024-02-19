@@ -12,6 +12,8 @@ package frc.robot;
  * <p>It is advised to statically import this class (or one of its inner classes) wherever the
  * constants are needed, to reduce verbosity.
  */
+
+ //TODO change all the ports
 public final class Constants {
   public static class OperatorConstants {
     public static final int xboxControllerPort = 0;
@@ -25,12 +27,22 @@ public final class Constants {
   }
 
   public static class SeesawConstants{
-    public static final int seesawMotorPort = 0;  
+    public static final int seesawMotorPort = 4;  
+    //TODO THESE R WRONG LIKE IT WILL LITERALLY BREAK ROBOT IF WE DONT CHANGE
+    public static final double shootingPos = 10.0;
+    public static final double zerodegreePos = 0.0;
+    public static final double groundIntakePos = -5.0;
+    public static final double humanIntakePos = -10.0;
   }
-  public static class IntakeConstants{
-    public static final int kshootMotorPort = 0;
-    public static final int kintakeMotorPort = 0;
+  public static class shootingAndIntakeConstants{
+    public static final int kshootMotorPort = 5;
+    public static final double shootspeed = 0.5;
+    public static final int intakeMotor = 6;
+    public static final double intakeSpeed = 0.1;
   }
 
-  
+  public static class ArmBaseConstants{
+    public static final int baseLeftMotorPort = 7;
+    public static final int baseRightMotorPort = 8;
+  }
 }

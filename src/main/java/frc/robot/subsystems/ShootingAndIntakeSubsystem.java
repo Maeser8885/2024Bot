@@ -4,17 +4,34 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.CANSparkLowLevel;
+import com.revrobotics.CANSparkMax;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
-public class IntakeWheelSubsystem extends SubsystemBase {
-  /** Creates a new ExampleSubsystem. */
-  public IntakeWheelSubsystem() {
+public class ShootingAndIntakeSubsystem extends SubsystemBase {
+  
+  CANSparkMax shootingandIntakeMotor = new CANSparkMax(Constants.shootingAndIntakeConstants.kshootMotorPort, CANSparkLowLevel.MotorType.kBrushless);
+  CANSparkMax intakeMotor = new CANSparkMax(Constants.shootingAndIntakeConstants.intakeMotor, CANSparkLowLevel.MotorType.kBrushless);
 
-    //intake rotation
+  public ShootingAndIntakeSubsystem() {}
 
-    //shooting rotation
+  public void shootNote(){
+    shootingandIntakeMotor.set(Constants.shootingAndIntakeConstants.shootspeed);
+    //TODO make it stop for a few milliseconds
+    shootingandIntakeMotor.stopMotor();
   }
+
+  public void intakeNote(){
+    shootingandIntakeMotor.set(Constants.shootingAndIntakeConstants.intakeSpeed);
+    intakeMotor.set(Constants.shootingAndIntakeConstants.intakeSpeed);
+    //TODO make it stop for a few ms
+    shootingandIntakeMotor.stopMotor();
+    intakeMotor.stopMotor();
+  }
+
 
   /**
    * Example command factory method.

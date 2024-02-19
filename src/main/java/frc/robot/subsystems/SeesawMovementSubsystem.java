@@ -5,19 +5,36 @@
 package frc.robot.subsystems;
 
 import frc.robot.Constants.SeesawConstants;
-import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
+
+import com.revrobotics.CANSparkLowLevel;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
+import com.revrobotics.SparkPIDController;
+import com.revrobotics.SparkRelativeEncoder;
+
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class SeesawMovementSubsystem extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
-  PWMSparkMax seeSawMotor = new PWMSparkMax(SeesawConstants.seesawMotorPort);
-  public SeesawMovementSubsystem() {
-    
-  }
+  public CANSparkMax seeSawMotor = new CANSparkMax(SeesawConstants.seesawMotorPort, CANSparkLowLevel.MotorType.kBrushless);
+  public RelativeEncoder seeSawEncoder;
+  public SparkPIDController seeSawPID;
+  private double setpoint;
+  private double prevSetpoint;
 
-  void rotateToAngle(int angle){
-    
+  public SeesawMovementSubsystem() {
+    seeSawEncoder = seeSawMotor.getEncoder(SparkRelativeEncoder.Type.kHallSensor, 42);
+    seeSawPID = seeSawMotor.getPIDController();
+    //TODO figure out softLimit
+    seeSawPID.setOutputRange(-0.4, 0.4);
+    setpoint = 0.0;
+  }
+  //We might need a manual way to rotate in order to find setpositions
+
+  void rotateToAngle(double angle){
+    setpoint = angle;
   }
 
   /**
@@ -46,7 +63,13 @@ public class SeesawMovementSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-      // This method will be called once per scheduler run
+      if (setpoint != prevSetpoint) {
+            seeSawPID.setReference(setpoint, CANSparkMax.ControlType.kPosition);
+        }
+        prevSetpoint = setpoint;
+
+        SmartDashboard.putNumber("Setpoint for Seesaw", setpoint);
+        SmartDashboard.putNumber("Current Seesaw val", seeSawEncoder.getPosition());
   }
 
   @Override
