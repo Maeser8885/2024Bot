@@ -33,6 +33,7 @@ public final class Constants {
   }
   public static class RetractionConstants{
     public static final int winchMotorPort = 9;
+    public static final double winchSpeed = 0.4;
   }
 
   
