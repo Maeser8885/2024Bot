@@ -31,7 +31,7 @@ public class ArmRetractionSubsystem extends SubsystemBase {
   }
 
   public void retractWinch(){
-    m_winchMotor.set(-Constants.RetractionConstants.winchSpeed);//TODO check if gud
+    m_winchMotor.set(-Constants.RetractionConstants.winchSpeed);}//TODO check if gud
   /**
    * An example method querying a boolean state of the subsystem (for example, a digital sensor).
    *
