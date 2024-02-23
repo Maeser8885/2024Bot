@@ -7,29 +7,43 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkLowLevel;
 import com.revrobotics.CANSparkMax;
 
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class ShootingAndIntakeSubsystem extends SubsystemBase {
   
-  CANSparkMax shootingandIntakeMotor = new CANSparkMax(Constants.shootingAndIntakeConstants.kshootMotorPort, CANSparkLowLevel.MotorType.kBrushless);
-  CANSparkMax intakeMotor = new CANSparkMax(Constants.shootingAndIntakeConstants.intakeMotor, CANSparkLowLevel.MotorType.kBrushless);
+  CANSparkMax m_shootingandIntakeMotor = new CANSparkMax(Constants.shootingAndIntakeConstants.kshootMotorPort, CANSparkLowLevel.MotorType.kBrushless);
+  CANSparkMax m_intakeMotor = new CANSparkMax(Constants.shootingAndIntakeConstants.intakeMotor, CANSparkLowLevel.MotorType.kBrushless);
 
-  public ShootingAndIntakeSubsystem() {}
+  //Variables for stopping shooting or intake
+  boolean isShooting = false;
+  Timer timer = new Timer();
+
+  public ShootingAndIntakeSubsystem() {timer.start();}
 
   public void shootNote(){
-    shootingandIntakeMotor.set(Constants.shootingAndIntakeConstants.shootspeed);
-    //TODO make it stop for a few milliseconds
-    shootingandIntakeMotor.stopMotor();
+    m_shootingandIntakeMotor.set(Constants.shootingAndIntakeConstants.shootspeed);
+
+    //Resetting timer that will stop the motors after an amount of time
+    timer.reset();
+    isShooting = true;
+
+    // shootingandIntakeMotor.stopMotor();
   }
 
   public void intakeNote(){
-    shootingandIntakeMotor.set(Constants.shootingAndIntakeConstants.intakeSpeed);
-    intakeMotor.set(Constants.shootingAndIntakeConstants.intakeSpeed);
-    //TODO make it stop for a few ms
-    shootingandIntakeMotor.stopMotor();
-    intakeMotor.stopMotor();
+    m_shootingandIntakeMotor.set(Constants.shootingAndIntakeConstants.intakeSpeed);
+    m_intakeMotor.set(Constants.shootingAndIntakeConstants.intakeSpeed);
+
+    //Resetting timer that will stop the motors after an amount of time 
+    timer.reset();
+    isShooting = false;
+    
+    // shootingandIntakeMotor.stopMotor();
+    // intakeMotor.stopMotor();
   }
 
 
@@ -59,6 +73,15 @@ public class ShootingAndIntakeSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
+    if (isShooting && timer.get() > Constants.shootingAndIntakeConstants.secondsToShoot){
+      m_shootingandIntakeMotor.set(0);
+    }
+    if (!isShooting && timer.get() > Constants.shootingAndIntakeConstants.secondsToIntake){
+      m_shootingandIntakeMotor.set(0);
+    }
+
+    SmartDashboard.putNumber("Shooting/Intake motor value", m_shootingandIntakeMotor.get());
+    SmartDashboard.putNumber("Intake motor value", m_intakeMotor.get());
     // This method will be called once per scheduler run
   }
 

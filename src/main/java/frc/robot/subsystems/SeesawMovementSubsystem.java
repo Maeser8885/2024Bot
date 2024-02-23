@@ -18,9 +18,9 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class SeesawMovementSubsystem extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
-  public CANSparkMax seeSawMotor = new CANSparkMax(SeesawConstants.seesawMotorPort, CANSparkLowLevel.MotorType.kBrushless);
-  public RelativeEncoder seeSawEncoder;
-  public SparkPIDController seeSawPID;
+  private final CANSparkMax seeSawMotor = new CANSparkMax(SeesawConstants.seesawMotorPort, CANSparkLowLevel.MotorType.kBrushless);
+  private RelativeEncoder seeSawEncoder;
+  private SparkPIDController seeSawPID;
   private double setpoint;
   private double prevSetpoint;
 

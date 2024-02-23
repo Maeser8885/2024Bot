@@ -4,12 +4,28 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.CANSparkLowLevel;
+import com.revrobotics.CANSparkMax;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class HookSubsystem extends SubsystemBase {
+
+  private final CANSparkMax m_hookMotor = new CANSparkMax(Constants.HookConstants.hookMotorPort, CANSparkLowLevel.MotorType.kBrushless);
+
+  public void retractHook(){
+    m_hookMotor.set(Constants.HookConstants.hookRetractionSpeed);
+  }
+
+  public void extendHook(){
+    m_hookMotor.set(Constants.HookConstants.hookExtensionSpeed);
+  }
   /** Creates a new ExampleSubsystem. */
-  public HookSubsystem() {}
+  public HookSubsystem() {
+
+  }
 
   /**
    * Example command factory method.

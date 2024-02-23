@@ -39,6 +39,9 @@ public final class Constants {
     public static final double shootspeed = 0.5;
     public static final int intakeMotor = 6;
     public static final double intakeSpeed = 0.1;
+    //TODO: Change these so it shoots good amount of time :)
+    public static final double secondsToShoot = 1;
+    public static double secondsToIntake = 1;
   }
   public static class RetractionConstants{
     public static final int winchMotorPort = 9;
@@ -48,5 +51,13 @@ public final class Constants {
   public static class ArmBaseConstants{
     public static final int baseLeftMotorPort = 7;
     public static final int baseRightMotorPort = 8;
+  }
+
+  public static class HookConstants{
+    //TODO: Change this so it works
+    public static final int hookMotorPort = 10;
+    public static double hookRetractionSpeed = 1;
+    public static double hookExtensionSpeed = 1;
+
   }
 }
