@@ -29,7 +29,7 @@ public class DriveSubsystem extends SubsystemBase{
 
     public Command getArcadeDriveCommand(){
         //TODO potentially edit these values
-        return this.run(() -> arcadeDrive(RobotContainer.joystickController.getX(), -RobotContainer.joystickController.getTwist()*0.75));
+        return this.run(() -> arcadeDrive(RobotContainer.joystickController.getY(), -RobotContainer.joystickController.getTwist()*0.8));
     }
 
     @Override
