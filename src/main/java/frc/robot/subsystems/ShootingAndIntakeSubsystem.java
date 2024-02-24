@@ -78,6 +78,7 @@ public class ShootingAndIntakeSubsystem extends SubsystemBase {
     }
     if (!isShooting && timer.get() > Constants.shootingAndIntakeConstants.secondsToIntake){
       m_shootingandIntakeMotor.set(0);
+      m_intakeMotor.set(0);
     }
 
     SmartDashboard.putNumber("Shooting/Intake motor value", m_shootingandIntakeMotor.get());

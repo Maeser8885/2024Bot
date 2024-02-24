@@ -6,11 +6,11 @@ package frc.robot.subsystems;
 
 import frc.robot.Constants.SeesawConstants;
 
+import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.CANSparkLowLevel;
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.RelativeEncoder;
+import com.revrobotics.SparkAbsoluteEncoder;
 import com.revrobotics.SparkPIDController;
-import com.revrobotics.SparkRelativeEncoder;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -19,13 +19,13 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class SeesawMovementSubsystem extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
   private final CANSparkMax seeSawMotor = new CANSparkMax(SeesawConstants.seesawMotorPort, CANSparkLowLevel.MotorType.kBrushless);
-  private RelativeEncoder seeSawEncoder;
+  private AbsoluteEncoder seeSawEncoder;
   private SparkPIDController seeSawPID;
   private double setpoint;
   private double prevSetpoint;
 
   public SeesawMovementSubsystem() {
-    seeSawEncoder = seeSawMotor.getEncoder(SparkRelativeEncoder.Type.kHallSensor, 42);
+    seeSawEncoder = seeSawMotor.getAbsoluteEncoder(SparkAbsoluteEncoder.Type.kDutyCycle);
     seeSawPID = seeSawMotor.getPIDController();
     //TODO figure out softLimit
     seeSawPID.setOutputRange(-0.4, 0.4);

@@ -36,7 +36,7 @@ public final class Constants {
   }
   public static class shootingAndIntakeConstants{
     public static final int kshootMotorPort = 5;
-    public static final double shootspeed = 0.5;
+    public static final double shootspeed = 1;
     public static final int intakeMotor = 6;
     public static final double intakeSpeed = 0.1;
     //TODO: Change these so it shoots good amount of time :)
