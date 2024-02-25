@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
 import com.revrobotics.*;
 
@@ -28,13 +29,21 @@ public class ArmRetractionSubsystem extends SubsystemBase {
           /* one-time action goes here */
         });
   }
+
+  //TODO change waitcommands
   public void extendWinch(){
     m_winchMotor.set(Constants.RetractionConstants.winchSpeed);
     extended = true;
+    new WaitCommand(1);
+     m_winchMotor.set(0);
   }
 
   public void retractWinch(){
-    m_winchMotor.set(-Constants.RetractionConstants.winchSpeed); extended = false;}//TODO check if gud
+    m_winchMotor.set(-Constants.RetractionConstants.winchSpeed); 
+    extended = false;
+    new WaitCommand(1);
+     m_winchMotor.set(0);
+  }//TODO check if gud
   /**
    * An example method querying a boolean state of the subsystem (for example, a digital sensor).
    *
