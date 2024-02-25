@@ -20,10 +20,10 @@ public final class Constants {
     public static final int joystickPort = 1;
   }
   public static class MotorConstants {
-    public static final int kblMotorPort = 0;
+    public static final int kblMotorPort = 2;
     public static final int kbrMotorPort = 1;
-    public static final int kflMotorPort = 2;
-    public static final int kfrMotorPort = 3;
+    public static final int kflMotorPort = 3;
+    public static final int kfrMotorPort = 0;
   }
 
   public static class SeesawConstants{

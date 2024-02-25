@@ -26,7 +26,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 public class RobotContainer {
 
   DriveSubsystem driveSubsystem = new DriveSubsystem();
-  ShootingAndIntakeSubsystem shootingandIntakeSubsystem = new ShootingAndIntakeSubsystem();
+  // ShootingAndIntakeSubsystem shootingandIntakeSubsystem = new ShootingAndIntakeSubsystem();
 
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
@@ -59,13 +59,13 @@ public class RobotContainer {
     new Trigger(m_exampleSubsystem::exampleCondition)
         .onTrue(new ExampleCommand(m_exampleSubsystem));
 
-      xboxController.rightTrigger().toggleOnTrue(new InstantCommand(()-> {
-        shootingandIntakeSubsystem.shootNote();
-      }, shootingandIntakeSubsystem));
+      //xboxController.rightTrigger().toggleOnTrue(new InstantCommand(()-> {
+     //   shootingandIntakeSubsystem.shootNote();
+     // }, shootingandIntakeSubsystem));
 
-      xboxController.leftTrigger().toggleOnTrue(new InstantCommand(()->{
-        shootingandIntakeSubsystem.intakeNote();
-      }, shootingandIntakeSubsystem));
+     // xboxController.leftTrigger().toggleOnTrue(new InstantCommand(()->{
+     //   shootingandIntakeSubsystem.intakeNote();
+     // }, shootingandIntakeSubsystem));
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
