@@ -33,6 +33,8 @@ public final class Constants {
     public static final double zerodegreePos = 0.0;
     public static final double groundIntakePos = -5.0;
     public static final double humanIntakePos = -10.0;
+    public static final double s_multiplicationControlFactor = 1.0;
+
   }
   public static class shootingAndIntakeConstants{
     public static final int kshootMotorPort = 5;
@@ -49,8 +51,13 @@ public final class Constants {
   }
 
   public static class ArmBaseConstants{
+    public static final double shootingPos = 10.0;
+    public static final double zerodegreePos = 0.0;
+    public static final double groundIntakePos = -5.0;
+    public static final double humanIntakePos = -10.0;
     public static final int baseLeftMotorPort = 7;
     public static final int baseRightMotorPort = 8;
+    public static final double a_multiplicationControlFactor = 1.0;
   }
 
   public static class HookConstants{
@@ -58,6 +65,14 @@ public final class Constants {
     public static final int hookMotorPort = 10;
     public static double hookRetractionSpeed = 1;
     public static double hookExtensionSpeed = 1;
+
+  }
+
+  public static class AutoConstants{
+    public static final double turnSpeed = 0.5;
+    //TODO THIS WILL ALSO PROBABLY BREAK THE ROBOT
+    public static final double speakerSeesaw = 0.5;
+    public static final double armBase = 0.5;
 
   }
 }

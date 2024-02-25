@@ -33,7 +33,7 @@ public class SeesawMovementSubsystem extends SubsystemBase {
   }
   //We might need a manual way to rotate in order to find setpositions
 
-  void rotateToAngle(double angle){
+  public void rotateToAngle(double angle){
     setpoint = angle;
   }
 

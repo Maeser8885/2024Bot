@@ -11,6 +11,8 @@ import com.revrobotics.*;
 
 public class ArmRetractionSubsystem extends SubsystemBase {
   private final CANSparkMax m_winchMotor = new CANSparkMax(Constants.RetractionConstants.winchMotorPort, CANSparkLowLevel.MotorType.kBrushless);
+  
+  boolean extended = false;
   public ArmRetractionSubsystem() {}
     
   /**
@@ -28,15 +30,18 @@ public class ArmRetractionSubsystem extends SubsystemBase {
   }
   public void extendWinch(){
     m_winchMotor.set(Constants.RetractionConstants.winchSpeed);
+    extended = true;
   }
 
   public void retractWinch(){
-    m_winchMotor.set(-Constants.RetractionConstants.winchSpeed);}//TODO check if gud
+    m_winchMotor.set(-Constants.RetractionConstants.winchSpeed); extended = false;}//TODO check if gud
   /**
    * An example method querying a boolean state of the subsystem (for example, a digital sensor).
    *
    * @return value of some boolean subsystem state, such as a digital sensor.
    */
+
+  public boolean getExtended(){return extended;}
   public boolean exampleCondition() {
     // Query some boolean state, such as a digital sensor.
     return false;

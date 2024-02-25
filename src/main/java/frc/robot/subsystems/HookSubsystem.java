@@ -14,13 +14,20 @@ import frc.robot.Constants;
 public class HookSubsystem extends SubsystemBase {
 
   private final CANSparkMax m_hookMotor = new CANSparkMax(Constants.HookConstants.hookMotorPort, CANSparkLowLevel.MotorType.kBrushless);
+  public boolean extended = false;
 
   public void retractHook(){
     m_hookMotor.set(Constants.HookConstants.hookRetractionSpeed);
+    extended = false;
   }
 
   public void extendHook(){
     m_hookMotor.set(Constants.HookConstants.hookExtensionSpeed);
+    extended = true;
+  }
+
+  public boolean getExtended(){
+    return extended;
   }
   /** Creates a new ExampleSubsystem. */
   public HookSubsystem() {

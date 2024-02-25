@@ -25,8 +25,8 @@ public class ArmBaseMovementSubsystem extends SubsystemBase {
 
   SparkPIDController leftMotorController;
   SparkPIDController rightMotorController;
-  double setpoint;
-  double prevSetpoint;
+  public double setpoint;
+  public double prevSetpoint;
 
   public ArmBaseMovementSubsystem() {
     leftEncoder = leftBaseMotor.getEncoder(SparkRelativeEncoder.Type.kHallSensor, 42);

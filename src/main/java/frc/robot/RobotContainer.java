@@ -4,15 +4,20 @@
 
 package frc.robot;
 
-import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.Autos;
-import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.DriveTimedCommand;
+import frc.robot.commands.RotateAngleCommand;
+import frc.robot.subsystems.ArmBaseMovementSubsystem;
+import frc.robot.subsystems.ArmRetractionSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.HookSubsystem;
+import frc.robot.subsystems.SeesawMovementSubsystem;
 import frc.robot.subsystems.ShootingAndIntakeSubsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -26,23 +31,43 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 public class RobotContainer {
 
   DriveSubsystem driveSubsystem = new DriveSubsystem();
-  // ShootingAndIntakeSubsystem shootingandIntakeSubsystem = new ShootingAndIntakeSubsystem();
-
-  // The robot's subsystems and commands are defined here...
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
-
+  ShootingAndIntakeSubsystem shootingandIntakeSubsystem = new ShootingAndIntakeSubsystem();
+  ArmBaseMovementSubsystem armBaseMovementSubsystem = new ArmBaseMovementSubsystem();
+  SeesawMovementSubsystem seesawMovementSubsystem = new SeesawMovementSubsystem();
+  ArmRetractionSubsystem armRetractionSubsystem = new ArmRetractionSubsystem();
+  HookSubsystem hookSubsystem = new HookSubsystem();
+  ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
+  
   // Replace with CommandPS4Controller or CommandJoystick if needed
   public static final CommandXboxController xboxController =
-      new CommandXboxController(OperatorConstants.xboxControllerPort);
+      new CommandXboxController(Constants.OperatorConstants.xboxControllerPort);
 
-  public static final CommandJoystick joystickController = new CommandJoystick(OperatorConstants.joystickPort);
+  public static final CommandJoystick joystickController = new CommandJoystick(Constants.OperatorConstants.joystickPort);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
     configureBindings();
+    setupDashboard();
 
-    
+    armBaseMovementSubsystem.setDefaultCommand(
+      new RunCommand(()->{
+        double positionToSet = xboxController.getRightX() * Constants.ArmBaseConstants.a_multiplicationControlFactor;
+
+        if(armBaseMovementSubsystem.setpoint != positionToSet){
+          armBaseMovementSubsystem.setPosition(positionToSet);
+        }
+      }, armBaseMovementSubsystem
+      ));
+      
+      seesawMovementSubsystem.setDefaultCommand(
+      new RunCommand(()->{
+        double positionToSet = xboxController.getLeftX() * Constants.SeesawConstants.s_multiplicationControlFactor;
+
+        if(armBaseMovementSubsystem.setpoint != positionToSet){
+          armBaseMovementSubsystem.setPosition(positionToSet);
+        }
+      }, seesawMovementSubsystem));
   }
 
   /**
@@ -55,31 +80,92 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-    // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
-    new Trigger(m_exampleSubsystem::exampleCondition)
-        .onTrue(new ExampleCommand(m_exampleSubsystem));
 
-      //xboxController.rightTrigger().toggleOnTrue(new InstantCommand(()-> {
-     //   shootingandIntakeSubsystem.shootNote();
-     // }, shootingandIntakeSubsystem));
+      xboxController.rightTrigger().onTrue(
+        new RunCommand(()->{shootingandIntakeSubsystem.shootNote();
+        }, shootingandIntakeSubsystem));
 
-     // xboxController.leftTrigger().toggleOnTrue(new InstantCommand(()->{
-     //   shootingandIntakeSubsystem.intakeNote();
-     // }, shootingandIntakeSubsystem));
+      xboxController.leftTrigger().onTrue(new RunCommand(()->{
+        shootingandIntakeSubsystem.intakeNote();
+      }, shootingandIntakeSubsystem));
 
-    // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
-    // cancelling on release.
-    
+      Trigger retractTrigger = xboxController.leftBumper().and(xboxController.rightBumper());
+
+      retractTrigger.onTrue(new RunCommand(()->{
+        boolean extended = armRetractionSubsystem.getExtended();
+        if(extended)armRetractionSubsystem.retractWinch();
+        else{armRetractionSubsystem.extendWinch();}
+      }, armRetractionSubsystem));
+
+      Trigger climberTrigger = xboxController.leftStick().and(xboxController.rightStick());
+
+      climberTrigger.onTrue(new RunCommand(()->{
+        if(hookSubsystem.getExtended()){
+          hookSubsystem.retractHook();
+        }
+        else{
+          hookSubsystem.extendHook();
+        }
+      }, hookSubsystem));
+      
+      //TODO finish controls
+      //x y a b presets for trap amp shooter and intake
   }
+
+ RunCommand speakerCommand = new RunCommand(()->{
+  armBaseMovementSubsystem.setPosition(Constants.AutoConstants.armBase);
+  seesawMovementSubsystem.rotateToAngle(Constants.AutoConstants.speakerSeesaw);
+
+ }, armBaseMovementSubsystem, seesawMovementSubsystem);
+  
+//TODO these are NOT right
+ public SequentialCommandGroup getFrontCommand(){
+    return new SequentialCommandGroup(
+      new DriveTimedCommand(2, 0.5, driveSubsystem),
+      new RotateAngleCommand(90, driveSubsystem),
+      speakerCommand,
+      new DriveTimedCommand(2, -0.5, driveSubsystem)
+    );
+ }
+
+ public SequentialCommandGroup getLeftCommand(){
+    return new SequentialCommandGroup(
+      new DriveTimedCommand(2, 0.5, driveSubsystem),
+      new RotateAngleCommand(90, driveSubsystem),
+      speakerCommand,
+      new DriveTimedCommand(2, -0.5, driveSubsystem)
+    );
+ }
+
+ public SequentialCommandGroup getRightCommand(){
+    return new SequentialCommandGroup(
+      new DriveTimedCommand(2, 0.5, driveSubsystem),
+      new RotateAngleCommand(90, driveSubsystem),
+      speakerCommand,
+      new DriveTimedCommand(2, -0.5, driveSubsystem)
+    );
+ }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
    * @return the command to run in autonomous
    */
+
+public SendableChooser<SequentialCommandGroup> AutoChooser = new SendableChooser<SequentialCommandGroup>();
+
+   public void setupDashboard()
+   {
+   AutoChooser.setDefaultOption("Forward", getFrontCommand());
+  AutoChooser.addOption("Left", getLeftCommand());
+  AutoChooser.addOption("Right", getRightCommand());
+  SmartDashboard.putData(AutoChooser);
+  }
+
   public Command getAutonomousCommand() {
-    // An example command will be run in autonomous
-    return Autos.exampleAuto(m_exampleSubsystem);
+    SequentialCommandGroup returnVal =  AutoChooser.getSelected();
+    AutoChooser.close();
+    return returnVal;
   }
 }
 
