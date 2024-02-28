@@ -19,8 +19,9 @@ public class ShootingAndIntakeSubsystem extends SubsystemBase {
   CANSparkMax m_intakeMotor = new CANSparkMax(Constants.shootingAndIntakeConstants.intakeMotor, CANSparkLowLevel.MotorType.kBrushless);
 
   //Variables for stopping shooting or intake
-  boolean isShooting = false;
+  // boolean isShooting = false;
   Timer timer = new Timer();
+  boolean resetMotorThisFrame = true;
 
   public ShootingAndIntakeSubsystem() {timer.start();}
 
@@ -28,10 +29,13 @@ public class ShootingAndIntakeSubsystem extends SubsystemBase {
     m_shootingandIntakeMotor.set(Constants.shootingAndIntakeConstants.shootspeed);
 
     //Resetting timer that will stop the motors after an amount of time
-    timer.reset();
-    isShooting = true;
+    // timer.reset();
+    // isShooting = true;
 
     // shootingandIntakeMotor.stopMotor();
+  }
+  public void stopShooting(){
+    m_shootingandIntakeMotor.set(0);
   }
 
   public void intakeNote(){
@@ -39,11 +43,15 @@ public class ShootingAndIntakeSubsystem extends SubsystemBase {
     m_intakeMotor.set(Constants.shootingAndIntakeConstants.intakeSpeed);
 
     //Resetting timer that will stop the motors after an amount of time 
-    timer.reset();
-    isShooting = false;
+    // timer.reset();
+    // isShooting = false;
     
     // shootingandIntakeMotor.stopMotor();
     // intakeMotor.stopMotor();
+  }
+  public void stopIntake(){
+    m_shootingandIntakeMotor.set(0);
+    m_intakeMotor.set(0);
   }
 
 
@@ -73,6 +81,7 @@ public class ShootingAndIntakeSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
+    /* 
     if (isShooting && timer.get() > Constants.shootingAndIntakeConstants.secondsToShoot){
       m_shootingandIntakeMotor.set(0);
     }
@@ -80,6 +89,7 @@ public class ShootingAndIntakeSubsystem extends SubsystemBase {
       m_shootingandIntakeMotor.set(0);
       m_intakeMotor.set(0);
     }
+    */
 
     SmartDashboard.putNumber("Shooting/Intake motor value", m_shootingandIntakeMotor.get());
     SmartDashboard.putNumber("Intake motor value", m_intakeMotor.get());

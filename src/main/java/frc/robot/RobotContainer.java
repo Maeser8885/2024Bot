@@ -15,6 +15,7 @@ import frc.robot.subsystems.ShootingAndIntakeSubsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
@@ -68,24 +69,13 @@ public class RobotContainer {
         }
       }, seesawMovementSubsystem));
 
-driveSubsystem.setDefaultCommand(
+      driveSubsystem.setDefaultCommand(
   new RunCommand(()->{
-    driveSubsystem.arcadeDrive(getThrottledY(), getThrottledTwist());
+    driveSubsystem.arcadeDrive(joystickController.getY(), joystickController.getTwist());
   }, driveSubsystem)
 );
-  }
 
-  private double adjustThrottle(double throttle) {
-    return -throttle/2 +1;
-}
-
-public double getThrottledY(){
-  return joystickController.getY() * adjustThrottle(joystickController.getThrottle());
-}
-
-public double getThrottledTwist(){
-  return joystickController.getTwist() * adjustThrottle(joystickController.getThrottle());
-}
+    }
 
 
   /**
@@ -99,12 +89,20 @@ public double getThrottledTwist(){
    */
   private void configureBindings() {
 
-      xboxController.rightTrigger().onTrue(
-        new RunCommand(()->{shootingandIntakeSubsystem.shootNote();
+      xboxController.rightTrigger().toggleOnTrue(new RunCommand(()->{
+        shootingandIntakeSubsystem.shootNote();
+        }, shootingandIntakeSubsystem));
+      
+      xboxController.rightTrigger().toggleOnFalse(new InstantCommand(()->{
+        shootingandIntakeSubsystem.stopShooting();
         }, shootingandIntakeSubsystem));
 
-      xboxController.leftTrigger().onTrue(new RunCommand(()->{
+      xboxController.leftTrigger().toggleOnTrue(new InstantCommand(()->{
         shootingandIntakeSubsystem.intakeNote();
+      }, shootingandIntakeSubsystem));
+
+      xboxController.leftTrigger().toggleOnFalse(new InstantCommand(()->{
+        shootingandIntakeSubsystem.stopIntake();
       }, shootingandIntakeSubsystem));
 
       Trigger retractTrigger = xboxController.leftBumper().and(xboxController.rightBumper());

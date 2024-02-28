@@ -37,6 +37,10 @@ public class SeesawMovementSubsystem extends SubsystemBase {
     setpoint = angle;
   }
 
+  public void modifySetPoint(double angle){
+    setpoint += angle;
+  }
+
   /**
    * Example command factory method.
    *
