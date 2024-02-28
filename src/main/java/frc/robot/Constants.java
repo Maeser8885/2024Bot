@@ -20,14 +20,16 @@ public final class Constants {
     public static final int joystickPort = 1;
   }
   public static class MotorConstants {
-    public static final int kblMotorPort = 2;
-    public static final int kbrMotorPort = 1;
-    public static final int kflMotorPort = 3;
-    public static final int kfrMotorPort = 0;
+    //dont change these I have tested them and also they are not CAN motors so the numbers can be the same :) -Charlie
+    public static final int kblMotorPort = 3;
+    public static final int kbrMotorPort = 0;
+    public static final int kflMotorPort = 2;
+    public static final int kfrMotorPort = 1;
   }
 
   public static class SeesawConstants{
-    public static final int seesawMotorPort = 4;  
+    public static final int seesawMotor1Port = 4; 
+    public static final int seesawMotor2Port = 3;
     //TODO THESE R WRONG LIKE IT WILL LITERALLY BREAK ROBOT IF WE DONT CHANGE
     public static final double shootingPos = 10.0;
     public static final double zerodegreePos = 0.0;
@@ -55,8 +57,8 @@ public final class Constants {
     public static final double zerodegreePos = 0.0;
     public static final double groundIntakePos = -5.0;
     public static final double humanIntakePos = -10.0;
-    public static final int baseLeftMotorPort = 7;
-    public static final int baseRightMotorPort = 8;
+    public static final int baseLeftMotorPort = 2;
+    public static final int baseRightMotorPort = 1;
     public static final double a_multiplicationControlFactor = 1.0;
   }
 

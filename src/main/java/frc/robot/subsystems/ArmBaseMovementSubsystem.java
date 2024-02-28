@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.CANSparkLowLevel;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
@@ -20,7 +21,7 @@ public class ArmBaseMovementSubsystem extends SubsystemBase {
   CANSparkMax leftBaseMotor = new CANSparkMax(Constants.ArmBaseConstants.baseLeftMotorPort, CANSparkLowLevel.MotorType.kBrushless);
   CANSparkMax rightBaseMotor = new CANSparkMax(Constants.ArmBaseConstants.baseRightMotorPort, CANSparkLowLevel.MotorType.kBrushless);
 
-  RelativeEncoder leftEncoder;
+  AbsoluteEncoder leftEncoder;
   RelativeEncoder rightEncoder;
 
   SparkPIDController leftMotorController;
@@ -29,7 +30,7 @@ public class ArmBaseMovementSubsystem extends SubsystemBase {
   public double prevSetpoint;
 
   public ArmBaseMovementSubsystem() {
-    leftEncoder = leftBaseMotor.getEncoder(SparkRelativeEncoder.Type.kHallSensor, 42);
+    leftEncoder = leftBaseMotor.getAbsoluteEncoder();
     rightEncoder = rightBaseMotor.getEncoder(SparkRelativeEncoder.Type.kHallSensor, 42);
 
     leftMotorController = leftBaseMotor.getPIDController();

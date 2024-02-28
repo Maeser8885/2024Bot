@@ -4,8 +4,7 @@
 
 package frc.robot;
 
-import frc.robot.commands.DriveTimedCommand;
-import frc.robot.commands.RotateAngleCommand;
+
 import frc.robot.subsystems.ArmBaseMovementSubsystem;
 import frc.robot.subsystems.ArmRetractionSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
@@ -68,7 +67,26 @@ public class RobotContainer {
           armBaseMovementSubsystem.setPosition(positionToSet);
         }
       }, seesawMovementSubsystem));
+
+driveSubsystem.setDefaultCommand(
+  new RunCommand(()->{
+    driveSubsystem.arcadeDrive(getThrottledY(), getThrottledTwist());
+  }, driveSubsystem)
+);
   }
+
+  private double adjustThrottle(double throttle) {
+    return -throttle/2 +1;
+}
+
+public double getThrottledY(){
+  return joystickController.getY() * adjustThrottle(joystickController.getThrottle());
+}
+
+public double getThrottledTwist(){
+  return joystickController.getTwist() * adjustThrottle(joystickController.getThrottle());
+}
+
 
   /**
    * Use this method to define your trigger->command mappings. Triggers can be created via the
@@ -119,32 +137,32 @@ public class RobotContainer {
  }, armBaseMovementSubsystem, seesawMovementSubsystem);
   
 //TODO these are NOT right
- public SequentialCommandGroup getFrontCommand(){
-    return new SequentialCommandGroup(
-      new DriveTimedCommand(2, 0.5, driveSubsystem),
-      new RotateAngleCommand(90, driveSubsystem),
-      speakerCommand,
-      new DriveTimedCommand(2, -0.5, driveSubsystem)
-    );
- }
+//  public SequentialCommandGroup getFrontCommand(){
+//     return new SequentialCommandGroup(
+//       new DriveTimedCommand(2, 0.5, driveSubsystem),
+//       new RotateAngleCommand(90, driveSubsystem),
+//       speakerCommand,
+//       new DriveTimedCommand(2, -0.5, driveSubsystem)
+//     );
+//  }
 
- public SequentialCommandGroup getLeftCommand(){
-    return new SequentialCommandGroup(
-      new DriveTimedCommand(2, 0.5, driveSubsystem),
-      new RotateAngleCommand(90, driveSubsystem),
-      speakerCommand,
-      new DriveTimedCommand(2, -0.5, driveSubsystem)
-    );
- }
+//  public SequentialCommandGroup getLeftCommand(){
+//     return new SequentialCommandGroup(
+//       new DriveTimedCommand(2, 0.5, driveSubsystem),
+//       new RotateAngleCommand(90, driveSubsystem),
+//       speakerCommand,
+//       new DriveTimedCommand(2, -0.5, driveSubsystem)
+//     );
+//  }
 
- public SequentialCommandGroup getRightCommand(){
-    return new SequentialCommandGroup(
-      new DriveTimedCommand(2, 0.5, driveSubsystem),
-      new RotateAngleCommand(90, driveSubsystem),
-      speakerCommand,
-      new DriveTimedCommand(2, -0.5, driveSubsystem)
-    );
- }
+//  public SequentialCommandGroup getRightCommand(){
+//     return new SequentialCommandGroup(
+//       new DriveTimedCommand(2, 0.5, driveSubsystem),
+//       new RotateAngleCommand(90, driveSubsystem),
+//       speakerCommand,
+//       new DriveTimedCommand(2, -0.5, driveSubsystem)
+//     );
+//  }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
@@ -156,10 +174,11 @@ public SendableChooser<SequentialCommandGroup> AutoChooser = new SendableChooser
 
    public void setupDashboard()
    {
-   AutoChooser.setDefaultOption("Forward", getFrontCommand());
-  AutoChooser.addOption("Left", getLeftCommand());
-  AutoChooser.addOption("Right", getRightCommand());
+  // AutoChooser.setDefaultOption("Forward", getFrontCommand());
+  // AutoChooser.addOption("Left", getLeftCommand());
+  // AutoChooser.addOption("Right", getRightCommand());
   SmartDashboard.putData(AutoChooser);
+  SmartDashboard.putNumber("THROTTLE", joystickController.getThrottle()/2+0.5);
   }
 
   public Command getAutonomousCommand() {
