@@ -75,6 +75,13 @@ public final class Constants {
     //TODO THIS WILL ALSO PROBABLY BREAK THE ROBOT
     public static final double speakerSeesaw = 0.5;
     public static final double armBase = 0.5;
-
+    public static final double velocity = 1.0; //meters per second
+    public static final double forwardDistance = 2;
+    public static final double rightTurnAngle = 90;
+    public static final double beforeRightDist = 2;
+    public static final double afterLeftDist = 2;
+    public static final double leftTurnAngle = 90;
+    public static final double beforeLeftDist = 2;
+    public static final double afterRightDist = 2;
   }
 }

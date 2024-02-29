@@ -5,6 +5,8 @@
 package frc.robot;
 
 
+import frc.robot.commands.DriveTimedCommand;
+import frc.robot.commands.RotateAngleCommand;
 import frc.robot.subsystems.ArmBaseMovementSubsystem;
 import frc.robot.subsystems.ArmRetractionSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
@@ -135,32 +137,37 @@ public class RobotContainer {
  }, armBaseMovementSubsystem, seesawMovementSubsystem);
   
 //TODO these are NOT right
-//  public SequentialCommandGroup getFrontCommand(){
-//     return new SequentialCommandGroup(
-//       new DriveTimedCommand(2, 0.5, driveSubsystem),
-//       new RotateAngleCommand(90, driveSubsystem),
-//       speakerCommand,
-//       new DriveTimedCommand(2, -0.5, driveSubsystem)
-//     );
-//  }
+ public SequentialCommandGroup getFrontCommand(){
+    return new SequentialCommandGroup(
+      new DriveTimedCommand(Constants.AutoConstants.forwardDistance/Constants.AutoConstants.velocity, 1, driveSubsystem),
+      speakerCommand,
+      new DriveTimedCommand(Constants.AutoConstants.forwardDistance/Constants.AutoConstants.velocity, -1, driveSubsystem)
+    );
+ }
 
-//  public SequentialCommandGroup getLeftCommand(){
-//     return new SequentialCommandGroup(
-//       new DriveTimedCommand(2, 0.5, driveSubsystem),
-//       new RotateAngleCommand(90, driveSubsystem),
-//       speakerCommand,
-//       new DriveTimedCommand(2, -0.5, driveSubsystem)
-//     );
-//  }
+ public SequentialCommandGroup getLeftCommand(){
+    return new SequentialCommandGroup(
+      new DriveTimedCommand(Constants.AutoConstants.beforeLeftDist, 1, driveSubsystem),
+      new RotateAngleCommand(Constants.AutoConstants.leftTurnAngle, driveSubsystem),
+      new DriveTimedCommand(Constants.AutoConstants.afterLeftDist/Constants.AutoConstants.velocity, 0, driveSubsystem),
+      speakerCommand,
+      new DriveTimedCommand(-Constants.AutoConstants.afterLeftDist, 1, driveSubsystem),
+      new RotateAngleCommand(-Constants.AutoConstants.leftTurnAngle, driveSubsystem),
+      new DriveTimedCommand(Constants.AutoConstants.beforeLeftDist, 1, driveSubsystem)
+    );
+ }
 
-//  public SequentialCommandGroup getRightCommand(){
-//     return new SequentialCommandGroup(
-//       new DriveTimedCommand(2, 0.5, driveSubsystem),
-//       new RotateAngleCommand(90, driveSubsystem),
-//       speakerCommand,
-//       new DriveTimedCommand(2, -0.5, driveSubsystem)
-//     );
-//  }
+ public SequentialCommandGroup getRightCommand(){
+    return new SequentialCommandGroup(
+      new DriveTimedCommand(Constants.AutoConstants.beforeRightDist, 1, driveSubsystem),
+      new RotateAngleCommand(Constants.AutoConstants.rightTurnAngle, driveSubsystem),
+      new DriveTimedCommand(Constants.AutoConstants.afterRightDist/Constants.AutoConstants.velocity, 0, driveSubsystem),
+      speakerCommand,
+      new DriveTimedCommand(-Constants.AutoConstants.afterRightDist, 1, driveSubsystem),
+      new RotateAngleCommand(-Constants.AutoConstants.rightTurnAngle, driveSubsystem),
+      new DriveTimedCommand(Constants.AutoConstants.beforeRightDist, 1, driveSubsystem)
+    );
+ }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
