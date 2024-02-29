@@ -64,7 +64,7 @@ public class RobotContainer {
       
       seesawMovementSubsystem.setDefaultCommand(
       new RunCommand(()->{
-        double positionToSet = xboxController.getLeftX() * Constants.SeesawConstants.s_multiplicationControlFactor;
+        double positionToSet = xboxController.getLeftX() * Constants.SeesawConstants.kMultiplicationControlFactor;
 
         if(armBaseMovementSubsystem.setpoint != positionToSet){
           armBaseMovementSubsystem.setPosition(positionToSet);
@@ -163,38 +163,43 @@ public class RobotContainer {
 
  }, armBaseMovementSubsystem, seesawMovementSubsystem);
   
-//TODO these are NOT right
- public SequentialCommandGroup getFrontCommand(){
-    return new SequentialCommandGroup(
-      new DriveTimedCommand(Constants.AutoConstants.forwardDistance/Constants.AutoConstants.velocity, 1, driveSubsystem),
-      speakerCommand,
-      new DriveTimedCommand(Constants.AutoConstants.forwardDistance/Constants.AutoConstants.velocity, -1, driveSubsystem)
-    );
- }
+//
 
- public SequentialCommandGroup getLeftCommand(){
-    return new SequentialCommandGroup(
-      new DriveTimedCommand(Constants.AutoConstants.beforeLeftDist, 1, driveSubsystem),
-      new RotateAngleCommand(Constants.AutoConstants.leftTurnAngle, driveSubsystem),
-      new DriveTimedCommand(Constants.AutoConstants.afterLeftDist/Constants.AutoConstants.velocity, 0, driveSubsystem),
-      speakerCommand,
-      new DriveTimedCommand(-Constants.AutoConstants.afterLeftDist, 1, driveSubsystem),
-      new RotateAngleCommand(-Constants.AutoConstants.leftTurnAngle, driveSubsystem),
-      new DriveTimedCommand(Constants.AutoConstants.beforeLeftDist, 1, driveSubsystem)
-    );
- }
 
- public SequentialCommandGroup getRightCommand(){
-    return new SequentialCommandGroup(
-      new DriveTimedCommand(Constants.AutoConstants.beforeRightDist, 1, driveSubsystem),
-      new RotateAngleCommand(Constants.AutoConstants.rightTurnAngle, driveSubsystem),
-      new DriveTimedCommand(Constants.AutoConstants.afterRightDist/Constants.AutoConstants.velocity, 0, driveSubsystem),
-      speakerCommand,
-      new DriveTimedCommand(-Constants.AutoConstants.afterRightDist, 1, driveSubsystem),
-      new RotateAngleCommand(-Constants.AutoConstants.rightTurnAngle, driveSubsystem),
-      new DriveTimedCommand(Constants.AutoConstants.beforeRightDist, 1, driveSubsystem)
-    );
- }
+
+
+
+//  public SequentialCommandGroup getFrontCommand(){
+//     return new SequentialCommandGroup(
+//       new DriveTimedCommand(Constants.AutoConstants.forwardDistance/Constants.AutoConstants.velocity, 1, driveSubsystem),
+//       speakerCommand,
+//       new DriveTimedCommand(Constants.AutoConstants.forwardDistance/Constants.AutoConstants.velocity, -1, driveSubsystem)
+//     );
+//  }
+
+//  public SequentialCommandGroup getLeftCommand(){
+//     return new SequentialCommandGroup(
+//       new DriveTimedCommand(Constants.AutoConstants.beforeLeftDist, 1, driveSubsystem),
+//       new RotateAngleCommand(Constants.AutoConstants.leftTurnAngle, driveSubsystem),
+//       new DriveTimedCommand(Constants.AutoConstants.afterLeftDist/Constants.AutoConstants.velocity, 0, driveSubsystem),
+//       speakerCommand,
+//       new DriveTimedCommand(-Constants.AutoConstants.afterLeftDist, 1, driveSubsystem),
+//       new RotateAngleCommand(-Constants.AutoConstants.leftTurnAngle, driveSubsystem),
+//       new DriveTimedCommand(Constants.AutoConstants.beforeLeftDist, 1, driveSubsystem)
+//     );
+//  }
+
+//  public SequentialCommandGroup getRightCommand(){
+//     return new SequentialCommandGroup(
+//       new DriveTimedCommand(Constants.AutoConstants.beforeRightDist, 1, driveSubsystem),
+//       new RotateAngleCommand(Constants.AutoConstants.rightTurnAngle, driveSubsystem),
+//       new DriveTimedCommand(Constants.AutoConstants.afterRightDist/Constants.AutoConstants.velocity, 0, driveSubsystem),
+//       speakerCommand,
+//       new DriveTimedCommand(-Constants.AutoConstants.afterRightDist, 1, driveSubsystem),
+//       new RotateAngleCommand(-Constants.AutoConstants.rightTurnAngle, driveSubsystem),
+//       new DriveTimedCommand(Constants.AutoConstants.beforeRightDist, 1, driveSubsystem)
+//     );
+//  }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
@@ -206,9 +211,9 @@ public SendableChooser<SequentialCommandGroup> AutoChooser = new SendableChooser
 
    public void setupDashboard()
    {
-  AutoChooser.setDefaultOption("Forward", getFrontCommand());
-  AutoChooser.addOption("Left", getLeftCommand());
-  AutoChooser.addOption("Right", getRightCommand());
+  // AutoChooser.setDefaultOption("Forward", getFrontCommand());
+  // AutoChooser.addOption("Left", getLeftCommand());
+  // AutoChooser.addOption("Right", getRightCommand());
   SmartDashboard.putData(AutoChooser);
   SmartDashboard.putNumber("THROTTLE", joystickController.getThrottle()/2+0.5);
   }

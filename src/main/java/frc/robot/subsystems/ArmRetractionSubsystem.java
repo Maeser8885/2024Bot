@@ -4,17 +4,24 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
 import com.revrobotics.*;
 
 public class ArmRetractionSubsystem extends SubsystemBase {
-  private final CANSparkMax m_winchMotor = new CANSparkMax(Constants.RetractionConstants.winchMotorPort, CANSparkLowLevel.MotorType.kBrushless);
+
+  private final CANSparkMax m_winchMotor1 = new CANSparkMax(Constants.RetractionConstants.winchMotor1Port, CANSparkLowLevel.MotorType.kBrushless);
+  private final CANSparkMax m_winchMotor2 = new CANSparkMax(Constants.RetractionConstants.winchMotor2Port, CANSparkLowLevel.MotorType.kBrushless);
   
   boolean extended = false;
-  public ArmRetractionSubsystem() {}
+
+  Timer timer = new Timer();
+
+  public ArmRetractionSubsystem() {
+      m_winchMotor2.follow(m_winchMotor1, true);
+  }
     
   /**
    * Example command factory method.
@@ -32,17 +39,16 @@ public class ArmRetractionSubsystem extends SubsystemBase {
 
   //TODO change waitcommands
   public void extendWinch(){
-    m_winchMotor.set(Constants.RetractionConstants.winchSpeed);
+    m_winchMotor1.set(Constants.RetractionConstants.winchSpeed);
     extended = true;
-    new WaitCommand(1);
-     m_winchMotor.set(0);
+    timer.restart();
+     m_winchMotor1.set(0);
   }
 
   public void retractWinch(){
-    m_winchMotor.set(-Constants.RetractionConstants.winchSpeed); 
+    m_winchMotor1.set(-Constants.RetractionConstants.winchSpeed); 
     extended = false;
-    new WaitCommand(1);
-     m_winchMotor.set(0);
+     m_winchMotor1.set(0);
   }//TODO check if gud
   /**
    * An example method querying a boolean state of the subsystem (for example, a digital sensor).
@@ -58,6 +64,9 @@ public class ArmRetractionSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
+    if(m_winchMotor1.get() != 0 && timer.get() >= Constants.RetractionConstants.kArmRetractionTime) {
+      m_winchMotor1.set(0);
+    }
     // This method will be called once per scheduler run
   }
 

@@ -15,7 +15,8 @@ import frc.robot.Constants;
 
 public class ShootingAndIntakeSubsystem extends SubsystemBase {
   
-  CANSparkMax m_shootingandIntakeMotor = new CANSparkMax(Constants.shootingAndIntakeConstants.kshootMotorPort, CANSparkLowLevel.MotorType.kBrushless);
+  CANSparkMax m_shootingandIntakeMotor = new CANSparkMax(Constants.shootingAndIntakeConstants.kSI1MotorPort, CANSparkLowLevel.MotorType.kBrushless);
+  CANSparkMax m_shootingandIntakeMotor2 = new CANSparkMax(Constants.shootingAndIntakeConstants.kSI2MotorPort, CANSparkLowLevel.MotorType.kBrushless);
   CANSparkMax m_intakeMotor = new CANSparkMax(Constants.shootingAndIntakeConstants.intakeMotor, CANSparkLowLevel.MotorType.kBrushless);
 
   //Variables for stopping shooting or intake
@@ -23,7 +24,10 @@ public class ShootingAndIntakeSubsystem extends SubsystemBase {
   Timer timer = new Timer();
   boolean resetMotorThisFrame = true;
 
-  public ShootingAndIntakeSubsystem() {timer.start();}
+  public ShootingAndIntakeSubsystem() {
+    m_shootingandIntakeMotor2.follow(m_shootingandIntakeMotor, true); //TODO: chekc if this is inverted
+    // timer.start();
+  }
 
   public void shootNote(){
     m_shootingandIntakeMotor.set(Constants.shootingAndIntakeConstants.shootspeed);

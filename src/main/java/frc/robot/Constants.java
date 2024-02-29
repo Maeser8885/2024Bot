@@ -22,9 +22,9 @@ public final class Constants {
   public static class MotorConstants {
     //dont change these I have tested them and also they are not CAN motors so the numbers can be the same :) -Charlie
     public static final int kblMotorPort = 3;
-    public static final int kbrMotorPort = 0;
+    public static final int kbrMotorPort = 1;
     public static final int kflMotorPort = 2;
-    public static final int kfrMotorPort = 1;
+    public static final int kfrMotorPort = 0;
   }
 
   public static class SeesawConstants{
@@ -36,7 +36,7 @@ public final class Constants {
     public static final double zerodegreePos = 0.0;
     public static final double groundIntakePos = -5.0;
     public static final double humanIntakePos = -10.0;
-    public static final double s_multiplicationControlFactor = 1.0;
+    public static final double kMultiplicationControlFactor = 1.0;
 
   }
   public static class shootingAndIntakeConstants{
@@ -47,10 +47,15 @@ public final class Constants {
     //TODO: Change these so it shoots good amount of time :)
     public static final double secondsToShoot = 1;
     public static double secondsToIntake = 1;
+    public static int kSI1MotorPort = 11;
+    public static int kSI2MotorPort = 12;
   }
   public static class RetractionConstants{
-    public static final int winchMotorPort = 9;
+    //change pls
     public static final double winchSpeed = 0.4;
+    public static int winchMotor1Port = 9;
+    public static int winchMotor2Port = 10;
+    public static double kArmRetractionTime = 1;
   }
 
   public static class ArmBaseConstants{
@@ -62,11 +67,15 @@ public final class Constants {
     public static final int baseLeftMotorPort = 2;
     public static final int baseRightMotorPort = 1;
     public static final double a_multiplicationControlFactor = 1.0;
+    public static float kFSoftLimit;
+    public static float kBSoftLimit;
+    public static double squishyLimit;
+    public static double squishyLimit2;
   }
 
   public static class HookConstants{
     //TODO: Change this so it works
-    public static final int hookMotorPort = 10;
+    public static final int hookMotorPort = 62;
     public static double hookRetractionSpeed = 1;
     public static double hookExtensionSpeed = 1;
 

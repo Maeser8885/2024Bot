@@ -40,11 +40,17 @@ public class ArmBaseMovementSubsystem extends SubsystemBase {
     rightMotorController.setOutputRange(-0.4, 0.4);
     leftMotorController.setOutputRange(-0.4, 0.4);
     
+    leftBaseMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward, true);
+    leftBaseMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, Constants.ArmBaseConstants.kFSoftLimit);
+
+    leftBaseMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, true);
+    leftBaseMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, Constants.ArmBaseConstants.kBSoftLimit);
+
     //TODO figure out softlimit
 
     setpoint = 0;
 
-
+    
 
   }
 
@@ -73,7 +79,10 @@ public class ArmBaseMovementSubsystem extends SubsystemBase {
   }
 
   public void setPosition(double pos){
-    setpoint = pos;
+    if(pos>Constants.ArmBaseConstants.squishyLimit){setpoint = Constants.ArmBaseConstants.squishyLimit;}
+    if(pos<Constants.ArmBaseConstants.squishyLimit2){setpoint = Constants.ArmBaseConstants.squishyLimit2;}
+    else{setpoint = pos;}
+    
   }
 
   @Override
@@ -83,6 +92,10 @@ public class ArmBaseMovementSubsystem extends SubsystemBase {
       leftMotorController.setReference(setpoint, CANSparkMax.ControlType.kPosition);
   }
     prevSetpoint = setpoint;
+
+
+
+
 
     SmartDashboard.putNumber("ArmBase Position", setpoint);
     SmartDashboard.putNumber("Previous ArmBase Position", prevSetpoint);

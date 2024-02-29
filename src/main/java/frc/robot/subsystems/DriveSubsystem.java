@@ -16,9 +16,11 @@ public class DriveSubsystem extends SubsystemBase{
     public DifferentialDrive driver; 
 
     public DriveSubsystem(){
-        rSpark.addFollower(brSpark);
+      rSpark.addFollower(brSpark);
         lSpark.addFollower(blSpark);
-        rSpark.setInverted(true);//tested, this is acceptable, if something is wrong check ports
+      rSpark.setInverted(true);//tested, this is acceptable, if something is wrong check ports
+        
+        
         driver = new DifferentialDrive(lSpark, rSpark);
     }
 
