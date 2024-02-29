@@ -31,7 +31,8 @@ public final class Constants {
     public static final int seesawMotor1Port = 4; 
     public static final int seesawMotor2Port = 3;
     //TODO THESE R WRONG LIKE IT WILL LITERALLY BREAK ROBOT IF WE DONT CHANGE
-    public static final double shootingPos = 10.0;
+    public static final double speakerPos = 10.0;
+    public static final double ampPos = 9.0;
     public static final double zerodegreePos = 0.0;
     public static final double groundIntakePos = -5.0;
     public static final double humanIntakePos = -10.0;
@@ -53,7 +54,8 @@ public final class Constants {
   }
 
   public static class ArmBaseConstants{
-    public static final double shootingPos = 10.0;
+    public static final double speakerPos = 10.0;
+    public static final double ampPos = 10.0;
     public static final double zerodegreePos = 0.0;
     public static final double groundIntakePos = -5.0;
     public static final double humanIntakePos = -10.0;

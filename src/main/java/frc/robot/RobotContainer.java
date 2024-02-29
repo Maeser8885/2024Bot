@@ -127,7 +127,34 @@ public class RobotContainer {
       }, hookSubsystem));
       
       //TODO finish controls
-      //x y a b presets for trap amp shooter and intake
+      //x = speaker
+      //y = amp
+      //a = ground intake
+      //b = human intake
+
+      xboxController.x().onTrue(new RunCommand(()->{
+        armBaseMovementSubsystem.setPosition(Constants.ArmBaseConstants.speakerPos);
+        seesawMovementSubsystem.rotateToAngle(Constants.SeesawConstants.speakerPos);
+        //extend maybe??
+      }, armBaseMovementSubsystem,  seesawMovementSubsystem));
+
+      xboxController.y().onTrue(new RunCommand(()->{
+        armBaseMovementSubsystem.setPosition(Constants.ArmBaseConstants.ampPos);
+        seesawMovementSubsystem.rotateToAngle(Constants.SeesawConstants.ampPos);
+        //extend maybe??
+      }, armBaseMovementSubsystem,  seesawMovementSubsystem));
+
+      xboxController.a().onTrue(new RunCommand(()->{
+        armBaseMovementSubsystem.setPosition(Constants.ArmBaseConstants.groundIntakePos);
+        seesawMovementSubsystem.rotateToAngle(Constants.SeesawConstants.groundIntakePos);
+        //extend maybe??
+      }, armBaseMovementSubsystem,  seesawMovementSubsystem));
+
+      xboxController.b().onTrue(new RunCommand(()->{
+        armBaseMovementSubsystem.setPosition(Constants.ArmBaseConstants.humanIntakePos);
+        seesawMovementSubsystem.rotateToAngle(Constants.SeesawConstants.humanIntakePos);
+        //extend maybe??
+      }, armBaseMovementSubsystem,  seesawMovementSubsystem));
   }
 
  RunCommand speakerCommand = new RunCommand(()->{
@@ -179,9 +206,9 @@ public SendableChooser<SequentialCommandGroup> AutoChooser = new SendableChooser
 
    public void setupDashboard()
    {
-  // AutoChooser.setDefaultOption("Forward", getFrontCommand());
-  // AutoChooser.addOption("Left", getLeftCommand());
-  // AutoChooser.addOption("Right", getRightCommand());
+  AutoChooser.setDefaultOption("Forward", getFrontCommand());
+  AutoChooser.addOption("Left", getLeftCommand());
+  AutoChooser.addOption("Right", getRightCommand());
   SmartDashboard.putData(AutoChooser);
   SmartDashboard.putNumber("THROTTLE", joystickController.getThrottle()/2+0.5);
   }
