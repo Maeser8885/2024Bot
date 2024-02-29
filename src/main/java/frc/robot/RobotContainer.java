@@ -10,7 +10,6 @@ import frc.robot.commands.RotateAngleCommand;
 import frc.robot.subsystems.ArmBaseMovementSubsystem;
 import frc.robot.subsystems.ArmRetractionSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
-import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.HookSubsystem;
 import frc.robot.subsystems.SeesawMovementSubsystem;
 import frc.robot.subsystems.ShootingAndIntakeSubsystem;
@@ -38,7 +37,6 @@ public class RobotContainer {
   SeesawMovementSubsystem seesawMovementSubsystem = new SeesawMovementSubsystem();
   ArmRetractionSubsystem armRetractionSubsystem = new ArmRetractionSubsystem();
   HookSubsystem hookSubsystem = new HookSubsystem();
-  ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   
   // Replace with CommandPS4Controller or CommandJoystick if needed
   public static final CommandXboxController xboxController =
