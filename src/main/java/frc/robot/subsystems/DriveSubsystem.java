@@ -4,7 +4,6 @@ import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.RobotContainer;
 
 public class DriveSubsystem extends SubsystemBase{
     //initialize the motors
@@ -40,10 +39,10 @@ public class DriveSubsystem extends SubsystemBase{
 
     
   
-
-  private double adjustThrottle(double throttle) {
-    return -throttle/2 +1;
-}
+//TODO do these
+  // private double adjustThrottle(double throttle) {
+  //   return -throttle/2 +1;
+//}
 
 // public double getThrottledY(){
 //   return RobotContainer.joystickController.getY() * adjustThrottle(RobotContainer.joystickController.getThrottle());
