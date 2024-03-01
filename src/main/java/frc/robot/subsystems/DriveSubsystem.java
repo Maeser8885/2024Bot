@@ -45,12 +45,12 @@ public class DriveSubsystem extends SubsystemBase{
     return -throttle/2 +1;
 }
 
-public double getThrottledY(){
-  return RobotContainer.joystickController.getY() * adjustThrottle(RobotContainer.joystickController.getThrottle());
-}
+// public double getThrottledY(){
+//   return RobotContainer.joystickController.getY() * adjustThrottle(RobotContainer.joystickController.getThrottle());
+// }
 
-public double getThrottledTwist(){
-  return RobotContainer.joystickController.getTwist() * adjustThrottle(RobotContainer.joystickController.getThrottle());
-}
+// public double getThrottledTwist(){
+//   return RobotContainer.joystickController.getTwist() * adjustThrottle(RobotContainer.joystickController.getThrottle());
+// }
 
 }

@@ -21,8 +21,8 @@ public class SeesawMovementSubsystem extends SubsystemBase {
   private final CANSparkMax seeSawMotor = new CANSparkMax(SeesawConstants.seesawMotor1Port, CANSparkLowLevel.MotorType.kBrushless);
   private AbsoluteEncoder seeSawEncoder;
   private SparkPIDController seeSawPID;
-  private double setpoint;
-  private double prevSetpoint;
+  public double setpoint;
+  public double prevSetpoint;
 
   public SeesawMovementSubsystem() {
     seeSawEncoder = seeSawMotor.getAbsoluteEncoder(SparkAbsoluteEncoder.Type.kDutyCycle);
