@@ -18,15 +18,17 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class SeesawMovementSubsystem extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
-  private final CANSparkMax seeSawMotor = new CANSparkMax(SeesawConstants.seesawMotor1Port, CANSparkLowLevel.MotorType.kBrushless);
+  private final CANSparkMax seeSawMotor1 = new CANSparkMax(SeesawConstants.seesawMotor1Port, CANSparkLowLevel.MotorType.kBrushless);
+  private final CANSparkMax seeSawMotor2 = new CANSparkMax(SeesawConstants.seesawMotor1Port, CANSparkLowLevel.MotorType.kBrushless);
   private AbsoluteEncoder seeSawEncoder;
   private SparkPIDController seeSawPID;
   public double setpoint;
   public double prevSetpoint;
 
   public SeesawMovementSubsystem() {
-    seeSawEncoder = seeSawMotor.getAbsoluteEncoder(SparkAbsoluteEncoder.Type.kDutyCycle);
-    seeSawPID = seeSawMotor.getPIDController();
+    seeSawEncoder = seeSawMotor1.getAbsoluteEncoder(SparkAbsoluteEncoder.Type.kDutyCycle);
+    seeSawPID = seeSawMotor1.getPIDController();
+    seeSawMotor2.follow(seeSawMotor1, true); //TODO check if gud
     //TODO figure out softLimit
     seeSawPID.setOutputRange(-0.4, 0.4);
     setpoint = 0.0;

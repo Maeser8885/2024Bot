@@ -7,9 +7,7 @@ package frc.robot.subsystems;
 import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.CANSparkLowLevel;
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkPIDController;
-import com.revrobotics.SparkRelativeEncoder;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -22,7 +20,6 @@ public class ArmBaseMovementSubsystem extends SubsystemBase {
   CANSparkMax rightBaseMotor = new CANSparkMax(Constants.ArmBaseConstants.baseRightMotorPort, CANSparkLowLevel.MotorType.kBrushless);
 
   AbsoluteEncoder leftEncoder;
-  RelativeEncoder rightEncoder;
 
   SparkPIDController leftMotorController;
   SparkPIDController rightMotorController;
@@ -31,7 +28,6 @@ public class ArmBaseMovementSubsystem extends SubsystemBase {
 
   public ArmBaseMovementSubsystem() {
     leftEncoder = leftBaseMotor.getAbsoluteEncoder();
-    rightEncoder = rightBaseMotor.getEncoder(SparkRelativeEncoder.Type.kHallSensor, 42);
 
     leftMotorController = leftBaseMotor.getPIDController();
     rightMotorController = rightBaseMotor.getPIDController();
@@ -49,9 +45,6 @@ public class ArmBaseMovementSubsystem extends SubsystemBase {
     //TODO figure out softlimit
 
     setpoint = 0;
-
-    
-
   }
 
   /**

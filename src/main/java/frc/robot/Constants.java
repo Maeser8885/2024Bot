@@ -28,8 +28,8 @@ public final class Constants {
   }
 
   public static class SeesawConstants{
-    public static final int seesawMotor1Port = 4; 
-    public static final int seesawMotor2Port = 3;
+    public static final int seesawMotor1Port = 6; 
+    public static final int seesawMotor2Port = 4;
     //TODO THESE R WRONG LIKE IT WILL LITERALLY BREAK ROBOT IF WE DONT CHANGE
     public static final double speakerPos = 10.0;
     public static final double ampPos = 9.0;
